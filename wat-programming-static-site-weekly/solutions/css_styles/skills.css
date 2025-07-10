@@ -1,0 +1,11 @@
+.skill[data-skill="1"] span::after {content:"★";}
+.skill[data-skill="1"] span::after {content:"★";}
+.skill[data-skill="2"] span::after {content:"★★";}
+.skill[data-skill="3"] span::after {content:"★★";}
+.skill[data-skill="4"] span::after {content:"★★★";}
+.skill[data-skill="5"] span::after {content:"★★★";}
+.skill[data-skill="6"] span::after {content:"★★★★";}
+.skill[data-skill="7"] span::after {content:"★★★★";}
+.skill[data-skill="8"] span::after {content:"★★★★★";}
+.skill[data-skill="9"] span::after {content:"★★★★★";}
+.skill[data-skill="10"]span::after {content:"★★★★★";}

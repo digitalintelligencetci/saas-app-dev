@@ -1,0 +1,65 @@
+/*remove default broswer styles and add a more up-to-date set of base styles*/
+@import "normalize.css"; 
+
+/*Take control of typography at the earliest opportunity!*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font:16px "Montserrat", Sans-Serif;
+    padding:50px 20px 20px 20px;  /* top | right | bottom | left */
+}
+
+
+figure {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+figure img{
+    width:100px;
+    height:100px;
+    margin: auto;
+}
+
+.contact{
+    width:60px;
+    height:60px;
+    background-repeat: no-repeat;
+    background-size:60%;
+    background-position: 50% 50%;
+    float:left;
+    display: block;
+    margin:3px;
+  }
+  
+  .contact:hover{
+    background-color:teal;
+  }
+  
+  .contact-type,.contact-value{
+    display:block;
+    float:left;
+    margin:0 ;
+    width:100%;
+    height:100%;
+    text-align: center;
+  }
+  
+  .contact-type{
+    font-size: .8em;
+  }
+  
+  .contact-value a{
+    display:block;
+    width:100%;
+    height:100%;
+    font-size: 0;
+  }
+  
+  
+  .contact-email{background-image:url("../img/icons8-email-50.png");}
+  .contact-github{background-image:url("../img/icons8-github-50.png");}
+  
+  

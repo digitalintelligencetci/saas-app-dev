@@ -1,0 +1,35 @@
+/*remove default broswer styles and add a more up-to-date set of base styles*/
+@import "normalize.css"; 
+
+/*Take control of typography at the earliest opportunity!*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font:16px "Montserrat", Sans-Serif;
+    padding:50px 20px 20px 20px;  /* top | right | bottom | left */
+}
+
+section {
+    min-height: 200px;
+    margin-bottom: 25px;
+}
+
+#one {
+    background-color: aqua;
+}
+
+#two {
+    background-color:beige;
+}
+
+#three {
+    background-color:blueviolet;
+}
+
+#four {
+    background-color:chartreuse ;
+}
+
+#five {
+    background-color:lavender;
+}

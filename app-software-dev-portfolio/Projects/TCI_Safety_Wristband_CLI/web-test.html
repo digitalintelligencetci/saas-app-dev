@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCI Safety Wristband - Web Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #0F172A;
+            color: #F8FAFC;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #1E293B;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #94A3B8;
+        }
+        .emergency-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .emergency-button {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #EF4444;
+            padding: 16px 20px;
+            border-radius: 12px;
+            gap: 8px;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .emergency-call-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #3B82F6;
+            padding: 16px 20px;
+            border-radius: 12px;
+            gap: 8px;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .device-card {
+            background-color: #1E293B;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 2px solid #3B82F6;
+        }
+        .device-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 8px;
+        }
+        .device-name {
+            font-size: 14px;
+            font-weight: 600;
+            flex: 1;
+        }
+        .device-stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .stat-text {
+            font-size: 12px;
+            color: #94A3B8;
+        }
+        .last-seen {
+            font-size: 10px;
+            color: #64748B;
+        }
+        .status-safe {
+            color: #10B981;
+        }
+        .status-warning {
+            color: #F59E0B;
+        }
+        .status-emergency {
+            color: #EF4444;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .info-label {
+            font-size: 14px;
+            color: #94A3B8;
+        }
+        .info-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .environmental-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .env-item {
+            text-align: center;
+        }
+        .env-label {
+            font-size: 12px;
+            color: #94A3B8;
+            margin-top: 4px;
+        }
+        .env-value {
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #374151;
+        }
+        .contact-info {
+            flex: 1;
+        }
+        .contact-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .contact-relationship {
+            font-size: 12px;
+            color: #94A3B8;
+        }
+        .contact-phone {
+            font-size: 12px;
+            color: #3B82F6;
+        }
+        .call-button {
+            padding: 8px;
+            background-color: rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            border: none;
+            color: #3B82F6;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">Safety Wristband</div>
+            <div class="subtitle">TCI Emergency Response System</div>
+        </div>
+
+        <!-- Emergency Controls -->
+        <div class="emergency-container">
+            <button class="emergency-button" onclick="handleSOS()">
+                🚨 SOS ALERT
+            </button>
+            <button class="emergency-call-button" onclick="handle911()">
+                📞 911
+            </button>
+        </div>
+
+        <!-- Device Status -->
+        <div class="section-title">Connected Devices (2)</div>
+        
+        <div class="device-card">
+            <div class="device-header">
+                <span class="status-safe">🛡️</span>
+                <div class="device-name">John's Safety Band</div>
+            </div>
+            <div class="device-stats">
+                <div class="stat-item">
+                    🔋 <span class="stat-text">85%</span>
+                </div>
+                <div class="stat-item">
+                    📶 <span class="stat-text">92%</span>
+                </div>
+            </div>
+            <div class="last-seen">Last seen: 2 minutes ago</div>
+        </div>
+
+        <div class="device-card">
+            <div class="device-header">
+                <span class="status-warning">⚠️</span>
+                <div class="device-name">Grace Bay Resort Band</div>
+            </div>
+            <div class="device-stats">
+                <div class="stat-item">
+                    🔋 <span class="stat-text">45%</span>
+                </div>
+                <div class="stat-item">
+                    📶 <span class="stat-text">78%</span>
+                </div>
+            </div>
+            <div class="last-seen">Last seen: 5 minutes ago</div>
+        </div>
+
+        <!-- Device Details -->
+        <div class="section-title">Device Information</div>
+        <div class="device-card">
+            <div class="info-row">
+                <span class="info-label">Status:</span>
+                <span class="info-value status-safe">🛡️ SAFE</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Battery:</span>
+                <span class="info-value">🔋 85%</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Signal:</span>
+                <span class="info-value">📶 92%</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Location:</span>
+                <span class="info-value">21.6940, -71.7979</span>
+            </div>
+        </div>
+
+        <!-- Environmental Data -->
+        <div class="section-title">Environmental Data</div>
+        <div class="device-card">
+            <div class="environmental-grid">
+                <div class="env-item">
+                    🌡️
+                    <div class="env-label">Temperature</div>
+                    <div class="env-value">28.5°C</div>
+                </div>
+                <div class="env-item">
+                    💧
+                    <div class="env-label">Water Depth</div>
+                    <div class="env-value">0m</div>
+                </div>
+                <div class="env-item">
+                    ☀️
+                    <div class="env-label">UV Index</div>
+                    <div class="env-value">8</div>
+                </div>
+                <div class="env-item">
+                    📊
+                    <div class="env-label">Pressure</div>
+                    <div class="env-value">1013.25hPa</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Contacts -->
+        <div class="section-title">Emergency Contacts</div>
+        <div class="device-card">
+            <div class="contact-item">
+                <div class="contact-info">
+                    <div class="contact-name">Sarah Smith</div>
+                    <div class="contact-relationship">Spouse</div>
+                    <div class="contact-phone">+1-649-946-1234</div>
+                </div>
+                <button class="call-button">📞</button>
+            </div>
+            <div class="contact-item">
+                <div class="contact-info">
+                    <div class="contact-name">Dr. Johnson</div>
+                    <div class="contact-relationship">Emergency Contact</div>
+                    <div class="contact-phone">+1-649-946-5678</div>
+                </div>
+                <button class="call-button">📞</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleSOS() {
+            alert('SOS Alert Sent!\nEmergency services have been notified. Help is on the way.');
+        }
+
+        function handle911() {
+            if (confirm('Call 911 Emergency Services?')) {
+                alert('Calling 911...\n(In real app, this would initiate emergency call)');
+            }
+        }
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const batteryElements = document.querySelectorAll('.stat-text');
+            batteryElements.forEach(el => {
+                if (el.textContent.includes('%')) {
+                    const currentValue = parseInt(el.textContent);
+                    const newValue = Math.max(0, currentValue - Math.random() * 2);
+                    el.textContent = Math.round(newValue) + '%';
+                }
+            });
+        }, 30000); // Update every 30 seconds
+    </script>
+</body>
+</html> 

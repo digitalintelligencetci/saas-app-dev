@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import "./bulma.css";
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.grid {
+    grid-template-columns: repeat(auto-fill, minmax(var(--bulma-grid-column-min), 1fr));
+}
+
+.cell {
+    --bulma-body-font-size: 1.2rem;
+    --bulma-radius: 1rem;
+    font-size: var(--bulma-body-font-size);
+    width: 250px;
+}
+
+.message-body {
+    --bulma-message-border-style: solid;
+    --bulma-message-border-l: 1px black;
+    --bulma-body-font-size: 1.4rem;
+    font-size: var(--bulma-body-font-size);
+}
+
+.contact {
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: 50% 50%;
+    float: left;
+    display: block;
+    margin: 3px;
+}
+
+.contact:hover {
+    background-color: teal;
+}
+
+.contact-type,
+.contact-value {
+    display: block;
+    float: left;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.contact-type {
+    font-size: .8em;
+}
+
+.contact-value a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+}
+
+
+.contact-email {
+    background-image: url("./img/icons8-email-50.png");
+}
+
+.contact-github {
+    background-image: url("./img/icons8-github-50.png");
+}
+
+
+.skill[data-skill="1"] span::after {
+    content: "★";
+}
+
+.skill[data-skill="1"] span::after {
+    content: "★";
+}
+
+.skill[data-skill="2"] span::after {
+    content: "★★";
+}
+
+.skill[data-skill="3"] span::after {
+    content: "★★";
+}
+
+.skill[data-skill="4"] span::after {
+    content: "★★★";
+}
+
+.skill[data-skill="5"] span::after {
+    content: "★★★";
+}
+
+.skill[data-skill="6"] span::after {
+    content: "★★★★";
+}
+
+.skill[data-skill="7"] span::after {
+    content: "★★★★";
+}
+
+.skill[data-skill="8"] span::after {
+    content: "★★★★★";
+}
+
+.skill[data-skill="9"] span::after {
+    content: "★★★★★";
+}
+
+.skill[data-skill="10"]span::after {
+    content: "★★★★★";
+}

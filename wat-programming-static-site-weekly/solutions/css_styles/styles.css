@@ -1,0 +1,227 @@
+@import "normalize.css";
+@import "skills.css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+body{
+  font:16px "Montserrat", Sans-Serif;
+  padding:50px 20px 20px 20px;
+}
+
+header {
+  max-width: 80%;
+  margin:auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+header > hgroup > h1 {
+  font-weight: bold;
+  font-size: xxx-large;
+}
+
+header > hgroup > p {
+  font-weight: bold;
+  font-size: large;
+}
+
+header > figure {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+header figure img{
+    width:100px;
+    height:100px;
+  margin: auto;
+}
+
+#content{
+  padding:20px;
+  margin:0 auto;
+  width:80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+section{
+  float:right;
+  padding-left:160px;
+  position:relative;
+  margin-bottom: 25px;
+}
+
+h3{
+  position: absolute;
+  top:0;
+  left:0;
+  width:150px;
+  margin-right:10px;
+  font-style: italic;
+  float: left;
+  height:100%;
+  border-right:1px solid black;
+}
+
+
+
+#about{
+  text-align: justify;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 0 0 2em;
+  font-style: italic;
+  color: #2b2a2a;
+}
+
+#skillset{
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 0 0 2em;
+  font-style: italic;
+  color: #2b2a2a;
+}
+
+#skillset .skills {
+  padding:15px;
+  margin:0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.skills>div {
+  margin-bottom: 5px;
+}
+
+
+#education, #employment_history {
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 0 0 2em;
+  color: #2b2a2a;
+}
+
+#education .skills {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, 200px);
+  gap: 5px;
+}
+
+#education .university {
+  background-color: darkolivegreen;
+  color: aliceblue;
+  text-align: center;
+  border: 2px solid #2b2a2a;
+}
+
+#education .alevel {
+  background-color: #930db3;
+  color: aliceblue;
+  text-align: center;
+  border: 2px solid #2b2a2a;
+}
+
+#education .gcse {
+  background-color: #075e5e;
+  color: aliceblue;
+  text-align: center;
+  border: 2px solid #2b2a2a;
+}
+
+.cv-item-list{
+  padding:0;
+  margin:0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cv-item{
+  width: 65vw;
+  max-width: 65vw;
+  padding:0;
+  margin:0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cv-item > hgroup {
+  width: 100%;
+}
+
+.cv-item-heading{
+  font-weight:bold;
+  color:teal;
+  margin-bottom:3px;
+  float: left;
+}
+
+.cv-item .subject {
+  color: #07b67f;
+  font-style: italic;
+  font-size: smaller;
+}
+
+.cv-item .award {
+  color: #07b67f;
+  font-style: italic;
+  font-size: smaller;
+}
+
+.cv-item-date{
+  color:#999;
+  float: right;
+}
+
+
+.contact{
+  width:60px;
+  height:60px;
+  background-repeat: no-repeat;
+  background-size:60%;
+  background-position: 50% 50%;
+  float:left;
+  display: block;
+  margin:3px;
+}
+
+.contact:hover{
+  background-color:teal;
+}
+
+.contact-type,.contact-value{
+  display:block;
+  float:left;
+  margin:0 ;
+  width:100%;
+  height:100%;
+  text-align: center;
+}
+
+.contact-type{
+  font-size: .8em;
+}
+
+.contact-value a{
+  display:block;
+  width:100%;
+  height:100%;
+  font-size: 0;
+}
+
+
+.contact-email{background-image:url("../img/icons8-email-50.png");}
+.contact-github{background-image:url("../img/icons8-github-50.png");}
+

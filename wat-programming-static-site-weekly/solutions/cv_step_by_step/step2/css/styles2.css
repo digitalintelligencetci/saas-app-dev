@@ -1,0 +1,37 @@
+/*remove default broswer styles and add a more up-to-date set of base styles*/
+@import "normalize.css"; 
+
+/*Take control of typography at the earliest opportunity!*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font:16px "Montserrat", Sans-Serif;
+    padding:50px 20px 20px 20px;  /* top | right | bottom | left */
+}
+
+section {
+    margin-bottom: 25px;
+}
+
+#one {
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    align-items:flex-start;
+    
+}
+
+/*only affect h3 that are contained in id one*/
+#one h3 {
+    flex: 1;
+    padding-left: 1em;
+}
+
+/*only affect p that are contained in id one*/
+#one p {
+    border-left: 1px solid black;
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: justify;
+    flex: 7;
+}

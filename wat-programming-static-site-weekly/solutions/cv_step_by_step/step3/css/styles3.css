@@ -1,0 +1,43 @@
+/*remove default broswer styles and add a more up-to-date set of base styles*/
+@import "normalize.css"; 
+
+/*Take control of typography at the earliest opportunity!*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font:16px "Montserrat", Sans-Serif;
+    padding:50px 20px 20px 20px;  /* top | right | bottom | left */
+}
+
+
+.item {
+    padding:2em;
+    background-color: blanchedalmond;
+}
+
+.item hgroup {
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left:1em;
+}
+
+.item-date {
+    align-content: center;
+    padding-right:1em;
+}
+
+.skill-list {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 5px;
+}
+
+.university {
+    background-color: darkolivegreen;
+    color: aliceblue;
+    text-align: center;
+    border: 2px solid #2b2a2a;
+  }
