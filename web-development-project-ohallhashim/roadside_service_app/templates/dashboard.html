@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Provo Roadside Service</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Welcome, {{ user.first_name|default:user.username }}!</h1>
+                <p class="subtitle">Your Roadside Service Dashboard</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <nav class="navbar is-primary">
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">Home</a>
+                <a href="/services/" class="navbar-item">Services</a>
+                <a href="/book/" class="navbar-item">Book Service</a>
+                <a href="/bookings/" class="navbar-item">My Bookings</a>
+            </div>
+            <div class="navbar-end">
+                <a href="/profile/" class="navbar-item">Profile</a>
+                <a href="/notifications/" class="navbar-item">
+                    <span class="icon">
+                        <i class="fas fa-bell"></i>
+                    </span>
+                    {% if notifications %}
+                        <span class="tag is-danger is-small">{{ notifications|length }}</span>
+                    {% endif %}
+                </a>
+                <a href="/logout/" class="navbar-item">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="section">
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notification is-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Quick Actions -->
+            <div class="columns mb-5">
+                <div class="column">
+                    <div class="box has-text-centered">
+                        <span class="icon is-large has-text-primary">
+                            <i class="fas fa-tools fa-2x"></i>
+                        </span>
+                        <h3 class="title is-4">Book Service</h3>
+                        <p class="subtitle is-6">Schedule roadside assistance</p>
+                        <a href="/book/" class="button is-primary">Book Now</a>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box has-text-centered">
+                        <span class="icon is-large has-text-info">
+                            <i class="fas fa-history fa-2x"></i>
+                        </span>
+                        <h3 class="title is-4">Booking History</h3>
+                        <p class="subtitle is-6">View past services</p>
+                        <a href="/bookings/" class="button is-info">View History</a>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box has-text-centered">
+                        <span class="icon is-large has-text-success">
+                            <i class="fas fa-user fa-2x"></i>
+                        </span>
+                        <h3 class="title is-4">Profile</h3>
+                        <p class="subtitle is-6">Update your information</p>
+                        <a href="/profile/" class="button is-success">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings -->
+            <div class="columns">
+                <div class="column is-two-thirds">
+                    <div class="box">
+                        <h2 class="title is-4">Recent Bookings</h2>
+                        {% if user_bookings %}
+                            {% for booking in user_bookings %}
+                                <div class="card mb-3">
+                                    <div class="card-content">
+                                        <div class="columns is-vcentered">
+                                            <div class="column">
+                                                <h4 class="title is-5">{{ booking.service.name }}</h4>
+                                                <p class="subtitle is-6">
+                                                    <span class="tag is-{{ booking.status|yesno:'success,warning,info' }}">
+                                                        {{ booking.status|title }}
+                                                    </span>
+                                                    • {{ booking.booking_date|date:"M d, Y H:i" }}
+                                                </p>
+                                                <p class="has-text-grey">{{ booking.location }}</p>
+                                            </div>
+                                            <div class="column is-narrow">
+                                                <a href="/booking/{{ booking.id }}/" class="button is-small is-outlined">
+                                                    View Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="has-text-centered">
+                                <a href="/bookings/" class="button is-primary">View All Bookings</a>
+                            </div>
+                        {% else %}
+                            <div class="has-text-centered">
+                                <p class="has-text-grey">No bookings yet.</p>
+                                <a href="/book/" class="button is-primary">Book Your First Service</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="column">
+                    <div class="box">
+                        <h2 class="title is-4">Recent Notifications</h2>
+                        {% if notifications %}
+                            {% for notification in notifications %}
+                                <div class="notification is-light mb-2">
+                                    <button class="delete" onclick="markAsRead({{ notification.id }})"></button>
+                                    <h5 class="title is-6">{{ notification.title }}</h5>
+                                    <p class="subtitle is-7">{{ notification.message }}</p>
+                                    <small class="has-text-grey">{{ notification.created_at|timesince }} ago</small>
+                                </div>
+                            {% endfor %}
+                            <div class="has-text-centered">
+                                <a href="/notifications/" class="button is-small is-outlined">View All</a>
+                            </div>
+                        {% else %}
+                            <p class="has-text-grey has-text-centered">No new notifications.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Provo Roadside Service</strong> by <a href="https://github.com/ohallhashim">Digital Intelligence LTD</a>. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function markAsRead(notificationId) {
+            fetch(`/notifications/${notificationId}/read/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Service - Provo Roadside Service</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Book a Service</h1>
+                <p class="subtitle">Schedule your roadside assistance</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <nav class="navbar is-primary">
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">Home</a>
+                <a href="/services/" class="navbar-item">Services</a>
+                <a href="/book/" class="navbar-item is-active">Book Service</a>
+                <a href="/bookings/" class="navbar-item">My Bookings</a>
+            </div>
+            <div class="navbar-end">
+                <a href="/dashboard/" class="navbar-item">Dashboard</a>
+                <a href="/logout/" class="navbar-item">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="section">
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notification is-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="columns">
+                <div class="column is-two-thirds">
+                    <div class="box">
+                        <h2 class="title is-4">Book Your Service</h2>
+                        <p class="subtitle is-6">Fill out the form below to schedule your roadside assistance</p>
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="field">
+                                <label class="label">Service Type</label>
+                                <div class="control">
+                                    {{ form.service }}
+                                </div>
+                                {% if form.service.errors %}
+                                    <p class="help is-danger">{{ form.service.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Preferred Date & Time</label>
+                                <div class="control">
+                                    {{ form.booking_date }}
+                                </div>
+                                {% if form.booking_date.errors %}
+                                    <p class="help is-danger">{{ form.booking_date.errors.0 }}</p>
+                                {% endif %}
+                                <p class="help">Please select a date and time for your service</p>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Location</label>
+                                <div class="control">
+                                    {{ form.location }}
+                                </div>
+                                {% if form.location.errors %}
+                                    <p class="help is-danger">{{ form.location.errors.0 }}</p>
+                                {% endif %}
+                                <p class="help">Please provide your exact location (address, landmarks, etc.)</p>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Vehicle Information</label>
+                                <div class="control">
+                                    {{ form.vehicle_info }}
+                                </div>
+                                {% if form.vehicle_info.errors %}
+                                    <p class="help is-danger">{{ form.vehicle_info.errors.0 }}</p>
+                                {% endif %}
+                                <p class="help">Make, model, year, color, and any other relevant details</p>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Additional Notes</label>
+                                <div class="control">
+                                    {{ form.notes }}
+                                </div>
+                                {% if form.notes.errors %}
+                                    <p class="help is-danger">{{ form.notes.errors.0 }}</p>
+                                {% endif %}
+                                <p class="help">Any special requirements or additional information</p>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-primary is-fullwidth" type="submit">
+                                        <span class="icon">
+                                            <i class="fas fa-calendar-check"></i>
+                                        </span>
+                                        <span>Book Service</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="box">
+                        <h3 class="title is-5">Available Services</h3>
+                        <div class="content">
+                            <ul>
+                                <li><strong>Flat Tire Repair</strong> - Quick tire replacement</li>
+                                <li><strong>Battery Jump-start</strong> - Get your car running again</li>
+                                <li><strong>Fuel Delivery</strong> - Emergency fuel when you're stranded</li>
+                                <li><strong>Towing Service</strong> - Professional towing to your destination</li>
+                                <li><strong>Lockout Assistance</strong> - Help when you're locked out</li>
+                                <li><strong>Emergency Repairs</strong> - Minor roadside repairs</li>
+                            </ul>
+                        </div>
+
+                        <div class="notification is-info is-light">
+                            <h4 class="title is-6">Important Information</h4>
+                            <ul>
+                                <li>Services are available 24/7</li>
+                                <li>Response time: 15-30 minutes</li>
+                                <li>Payment required upon booking</li>
+                                <li>Free cancellation up to 1 hour before service</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Provo Roadside Service</strong> by <a href="https://github.com/ohallhashim">Digital Intelligence LTD</a>. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html> 

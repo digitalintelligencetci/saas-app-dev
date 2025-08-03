@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Provo Roadside Service</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Complete Payment</h1>
+                <p class="subtitle">Secure payment for your roadside service</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <nav class="navbar is-primary">
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">Home</a>
+                <a href="/dashboard/" class="navbar-item">Dashboard</a>
+                <a href="/bookings/" class="navbar-item">My Bookings</a>
+            </div>
+            <div class="navbar-end">
+                <a href="/profile/" class="navbar-item">Profile</a>
+                <a href="/logout/" class="navbar-item">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="section">
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notification is-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="columns">
+                <div class="column is-two-thirds">
+                    <div class="box">
+                        <h2 class="title is-4">Payment Details</h2>
+                        
+                        <!-- Booking Summary -->
+                        <div class="notification is-info is-light mb-4">
+                            <h3 class="title is-5">Booking Summary</h3>
+                            <div class="columns">
+                                <div class="column">
+                                    <p><strong>Service:</strong> {{ booking.service.name }}</p>
+                                    <p><strong>Date:</strong> {{ booking.booking_date|date:"M d, Y H:i" }}</p>
+                                    <p><strong>Location:</strong> {{ booking.location }}</p>
+                                </div>
+                                <div class="column">
+                                    <p><strong>Amount:</strong> ${{ booking.service.price }}</p>
+                                    <p><strong>Duration:</strong> {{ booking.service.duration }} minutes</p>
+                                    <p><strong>Status:</strong> 
+                                        <span class="tag is-warning">{{ booking.status|title }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Form -->
+                        <form id="payment-form">
+                            <div class="field">
+                                <label class="label">Card Information</label>
+                                <div class="control">
+                                    <div id="card-element" class="input" style="padding: 12px;">
+                                        <!-- Stripe Elements will be inserted here -->
+                                    </div>
+                                </div>
+                                <div id="card-errors" class="help is-danger" role="alert"></div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <button id="submit-button" class="button is-primary is-fullwidth" type="submit">
+                                        <span class="icon">
+                                            <i class="fas fa-credit-card"></i>
+                                        </span>
+                                        <span>Pay ${{ booking.service.price }}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div id="payment-message" class="notification" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="box">
+                        <h3 class="title is-5">Payment Security</h3>
+                        <div class="content">
+                            <ul>
+                                <li><i class="fas fa-shield-alt has-text-success"></i> Secure SSL encryption</li>
+                                <li><i class="fas fa-lock has-text-success"></i> PCI DSS compliant</li>
+                                <li><i class="fas fa-credit-card has-text-success"></i> Stripe powered payments</li>
+                                <li><i class="fas fa-user-shield has-text-success"></i> Your data is protected</li>
+                            </ul>
+                        </div>
+
+                        <div class="notification is-warning is-light">
+                            <h4 class="title is-6">Important</h4>
+                            <ul>
+                                <li>Payment is required to confirm your booking</li>
+                                <li>You can cancel up to 1 hour before service</li>
+                                <li>Refunds are processed within 3-5 business days</li>
+                                <li>Service will be confirmed after payment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Provo Roadside Service</strong> by <a href="https://github.com/ohallhashim">Digital Intelligence LTD</a>. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Stripe
+        const stripe = Stripe('{{ stripe_public_key }}');
+        const elements = stripe.elements();
+
+        // Create card element
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#424770',
+                    '::placeholder': {
+                        color: '#aab7c4',
+                    },
+                },
+                invalid: {
+                    color: '#9e2146',
+                },
+            },
+        });
+
+        cardElement.mount('#card-element');
+
+        // Handle form submission
+        const form = document.getElementById('payment-form');
+        const submitButton = document.getElementById('submit-button');
+        const paymentMessage = document.getElementById('payment-message');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<span class="icon"><i class="fas fa-spinner fa-spin"></i></span><span>Processing...</span>';
+
+            try {
+                // Create payment intent
+                const response = await fetch('/booking/{{ booking.id }}/payment/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    },
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // Confirm payment
+                const { error } = await stripe.confirmCardPayment(data.client_secret, {
+                    payment_method: {
+                        card: cardElement,
+                    },
+                });
+
+                if (error) {
+                    throw new Error(error.message);
+                }
+
+                // Payment successful
+                paymentMessage.className = 'notification is-success';
+                paymentMessage.innerHTML = `
+                    <h4 class="title is-5">Payment Successful!</h4>
+                    <p>Your booking has been confirmed. You will receive a confirmation email shortly.</p>
+                    <a href="/dashboard/" class="button is-success">Go to Dashboard</a>
+                `;
+                paymentMessage.style.display = 'block';
+                form.style.display = 'none';
+
+            } catch (error) {
+                paymentMessage.className = 'notification is-danger';
+                paymentMessage.innerHTML = `
+                    <h4 class="title is-5">Payment Failed</h4>
+                    <p>${error.message}</p>
+                `;
+                paymentMessage.style.display = 'block';
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<span class="icon"><i class="fas fa-credit-card"></i></span><span>Try Again</span>';
+            }
+        });
+
+        // Handle card errors
+        cardElement.addEventListener('change', ({ error }) => {
+            const displayError = document.getElementById('card-errors');
+            if (error) {
+                displayError.textContent = error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html> 

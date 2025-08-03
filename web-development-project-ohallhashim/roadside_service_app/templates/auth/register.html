@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Provo Roadside Service</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Register</h1>
+                <p class="subtitle">Join Provo Roadside Service</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <nav class="navbar is-primary">
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">Home</a>
+                <a href="/contact/" class="navbar-item">Contact</a>
+                <a href="/services/" class="navbar-item">Services</a>
+                <a href="/about/" class="navbar-item">About</a>
+            </div>
+            <div class="navbar-end">
+                <a href="/login/" class="navbar-item">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <div class="box">
+                        <h2 class="title has-text-centered">Create Your Account</h2>
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="notification is-{{ message.tags }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label">First Name</label>
+                                        <div class="control">
+                                            {{ form.first_name }}
+                                        </div>
+                                        {% if form.first_name.errors %}
+                                            <p class="help is-danger">{{ form.first_name.errors.0 }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label">Last Name</label>
+                                        <div class="control">
+                                            {{ form.last_name }}
+                                        </div>
+                                        {% if form.last_name.errors %}
+                                            <p class="help is-danger">{{ form.last_name.errors.0 }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Username</label>
+                                <div class="control">
+                                    {{ form.username }}
+                                </div>
+                                {% if form.username.errors %}
+                                    <p class="help is-danger">{{ form.username.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Email</label>
+                                <div class="control">
+                                    {{ form.email }}
+                                </div>
+                                {% if form.email.errors %}
+                                    <p class="help is-danger">{{ form.email.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Phone Number</label>
+                                <div class="control">
+                                    {{ form.phone_number }}
+                                </div>
+                                {% if form.phone_number.errors %}
+                                    <p class="help is-danger">{{ form.phone_number.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Address</label>
+                                <div class="control">
+                                    {{ form.address }}
+                                </div>
+                                {% if form.address.errors %}
+                                    <p class="help is-danger">{{ form.address.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Password</label>
+                                <div class="control">
+                                    {{ form.password1 }}
+                                </div>
+                                {% if form.password1.errors %}
+                                    <p class="help is-danger">{{ form.password1.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Confirm Password</label>
+                                <div class="control">
+                                    {{ form.password2 }}
+                                </div>
+                                {% if form.password2.errors %}
+                                    <p class="help is-danger">{{ form.password2.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-primary is-fullwidth" type="submit">
+                                        Register
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="has-text-centered mt-4">
+                            <p>Already have an account? <a href="/login/">Login here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Provo Roadside Service</strong> by <a href="https://github.com/ohallhashim">Digital Intelligence LTD</a>. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html> 

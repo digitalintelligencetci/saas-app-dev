@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Provo Roadside Service</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Login</h1>
+                <p class="subtitle">Welcome back to Provo Roadside Service</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <nav class="navbar is-primary">
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">Home</a>
+                <a href="/contact/" class="navbar-item">Contact</a>
+                <a href="/services/" class="navbar-item">Services</a>
+                <a href="/about/" class="navbar-item">About</a>
+            </div>
+            <div class="navbar-end">
+                <a href="/register/" class="navbar-item">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <div class="box">
+                        <h2 class="title has-text-centered">Login to Your Account</h2>
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="notification is-{{ message.tags }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="field">
+                                <label class="label">Username</label>
+                                <div class="control">
+                                    {{ form.username }}
+                                </div>
+                                {% if form.username.errors %}
+                                    <p class="help is-danger">{{ form.username.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Password</label>
+                                <div class="control">
+                                    {{ form.password }}
+                                </div>
+                                {% if form.password.errors %}
+                                    <p class="help is-danger">{{ form.password.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-primary is-fullwidth" type="submit">
+                                        Login
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="has-text-centered mt-4">
+                            <p>Don't have an account? <a href="/register/">Register here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Provo Roadside Service</strong> by <a href="https://github.com/ohallhashim">Digital Intelligence LTD</a>. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html> 
